@@ -1,0 +1,48 @@
+buildscript {
+	ext {
+		springdocVersion = '1.5.7'
+	}
+}
+
+plugins {
+	// Kotlin plugins for Gradle
+	id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.4.32'
+
+	id 'org.springframework.boot' version '2.4.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+
+	// Git properties
+	id 'com.gorylenko.gradle-git-properties' version '2.2.4'
+}
+
+group = 'com.ahmetgeymen'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// OpenAPI 3
+	implementation "org.springdoc:springdoc-openapi-kotlin:${springdocVersion}"
+	implementation "org.springdoc:springdoc-openapi-webflux-ui:${springdocVersion}"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+compileKotlin {
+	kotlinOptions.jvmTarget = JavaVersion.VERSION_11
+}
+
+gitProperties {
+	failOnNoGitDirectory = false
+}
